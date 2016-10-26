@@ -1,27 +1,17 @@
-# Laravel PHP Framework
+# Laravel Test Task for Code Care
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+We have mysql database with table Vocabulary. Table has column word varchar(255).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Create page where user can select several items from Vocabulary table and get hash of them with one or several selected algorithms, e.g. md5, sha1, etc. Please provide at least 5 different algorithms. Result for each selected hash algorithm has to be displayed independently.
+User should be able to save hashes to the database and access saved hashes via rest interface.
+Provide cli task and schedule it to run each 11 minutes. Task should create xml files with information about user, their saved hashes, origin words and similar words from database. User information should include ip, browser, cookie and country of the user.
 
-## Official Documentation
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Please make sure you’ve provided good documentation for your solution in english with instruction on how to run and use it.
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+You would get additional points for providing unit/functional tests and code that follows SOLID principles.
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+As result of this task we expect to get link to git repository.
