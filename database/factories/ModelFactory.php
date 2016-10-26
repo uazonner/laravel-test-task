@@ -22,3 +22,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+// We fill the data table Vocabulary
+$factory->define(App\Models\Vocabulary::class, function (Faker\Generator $faker) {
+
+    return [
+        'word' => $faker->word,
+    ];
+});
