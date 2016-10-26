@@ -2,16 +2,14 @@
 
 @section('content')
     <div class="container">
+        <h4>Vocabulary words</h4>
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h4>Vocabulary words</h4></div>
-                    <div class="panel-body">
+                        <ul class="list-group">
                         @foreach($vocabulary as $item)
-                            {{ $item->word }} <br>
+                            <li class="list-group-item">{{ $item->word }}</li>
                         @endforeach
-                    </div>
-                </div>
+                        </ul>
                 {{ $vocabulary->render() }}
             </div>
         </div>
