@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container">
+
+        @if (Auth::guest())
+            <div class="alert alert-warning">
+                Please sign in, to save the hash.
+            </div>
+        @endif
+
         <h2>Result</h2>
         <div class="row">
             <div class="col-md-12">
@@ -29,10 +36,16 @@
                                         <td class="{{ $id }}-{{ $algorithm }}-algorithm">{{ $algorithm }}</td>
                                         <td class="{{ $id }}-{{ $algorithm }}-hash">{{ $hash }}</td>
                                         <td>
-                                            {!! Form::open() !!}
-                                            {{ Form::submit('Save',
-                                                ['class' => 'btn btn-primary btn-xs saveHash', 'id' => $id . '-' . $algorithm]) }}
-                                            {!! Form::close() !!}
+                                            @if ( Auth::user())
+                                                {!! Form::open() !!}
+                                                {{ Form::submit('Save',
+                                                    ['class' => 'btn btn-primary btn-xs saveHash', 'id' => $id . '-' . $algorithm]) }}
+                                                {!! Form::close() !!}
+
+                                            @else
+                                                <button type="button" class="btn btn-primary btn-xs disabled">Save
+                                                </button>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

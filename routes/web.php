@@ -14,11 +14,9 @@
 Route::get('/', ['as' => 'HashGenerator::get', 'uses' => 'VocabularyController@index']);
 Route::post('/', ['as' => 'HashGenerator::post', 'uses' => 'VocabularyController@hashView']);
 
-/*Route::group(['as' => 'user::', 'middleware' => ['auth']], function () {
+Route::group(['as' => 'user::', 'middleware' => ['auth']], function () {
     Route::post('/hash', 'HashController@store');
-});*/
-
-Route::post('/hash', 'HashController@store');
+});
 
 Auth::routes();
 
