@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/', 'VocabularyController@lists');
+Route::get('/', ['as' => 'HashGenerator::get', 'uses' => 'VocabularyController@index']);
+Route::post('/', ['as' => 'HashGenerator::post', 'uses' => 'VocabularyController@hashView']);
+
+Route::group(['as' => 'user::', 'middleware' => ['auth']], function () {
+    Route::resource('hash', 'HashController');
+});
 
 Auth::routes();
 
