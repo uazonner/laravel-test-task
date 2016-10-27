@@ -21,7 +21,7 @@
                 <ul class="list-group">
                     @foreach($vocabulary as $item)
                         <li class="list-group-item">
-                            {!! Form::checkbox('words[]', $item->word, false, ['id' => $item->id]) !!}
+                            {!! Form::checkbox("words[$item->id]", $item->word, false, ['id' => $item->id]) !!}
                             {!! Form::label($item->id, $item->word) !!}
                         </li>
                     @endforeach

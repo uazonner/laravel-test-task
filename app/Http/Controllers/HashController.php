@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HashController extends Controller
 {
@@ -32,9 +35,22 @@ class HashController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Hash $hash, Request $request)
     {
-        //
+
+        $wordId = explode('-', $request->get('word_id'));
+        $word_id = $wordId[0];
+
+        $hash = new Hash();
+
+        $hash->algorithm = ($request->algorithm);
+        $hash->hash = ($request->hash);
+        $hash->user_id = (Auth::user()->id);
+        $hash->vocabulary_id = ($word_id);
+
+        $hash->save();
+
+        return $hash->id;
     }
 
     /**

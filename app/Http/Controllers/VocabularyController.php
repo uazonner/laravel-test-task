@@ -30,32 +30,37 @@ class VocabularyController extends Controller
 
         foreach ($request->hash as $value) {
             if ($value === 'md5') {
-                foreach ($request->words as $word) {
-                    $hashWords[$word]['MD5'] = hash('MD5', $word);
+                foreach ($request->words as $id => $word) {
+                    $hashWords[$id]['algorithm']['MD5'] = hash('MD5', $word);
+                    $hashWords[$id]['origin'] = $word;
                 }
             }
 
             if ($value === 'sha256') {
-                foreach ($request->words as $word) {
-                    $hashWords[$word]['SHA-256'] = hash('sha256', $word);
+                foreach ($request->words as $id => $word) {
+                    $hashWords[$id]['algorithm']['SHA-256'] = hash('sha256', $word);
+                    $hashWords[$id]['origin'] = $word;
                 }
             }
 
             if ($value === 'sha512') {
-                foreach ($request->words as $word) {
-                    $hashWords[$word]['SHA-512'] = hash('sha512', $word);
+                foreach ($request->words as $id => $word) {
+                    $hashWords[$id]['algorithm']['SHA-512'] = hash('sha512', $word);
+                    $hashWords[$id]['origin'] = $word;
                 }
             }
 
             if ($value === 'sha1') {
-                foreach ($request->words as $word) {
-                    $hashWords[$word]['SHA-1'] = hash('sha1', $word);
+                foreach ($request->words as $id => $word) {
+                    $hashWords[$id]['algorithm']['SHA-1'] = hash('sha1', $word);
+                    $hashWords[$id]['origin'] = $word;
                 }
             }
 
             if ($value === 'blowfish') {
-                foreach ($request->words as $word) {
-                    $hashWords[$word]['Blowfish'] = crypt($word, 'CRYPT_BLOWFISH');
+                foreach ($request->words as $id => $word) {
+                    $hashWords[$id]['algorithm']['Blowfish'] = crypt($word, 'CRYPT_BLOWFISH');
+                    $hashWords[$id]['origin'] = $word;
                 }
             }
         }

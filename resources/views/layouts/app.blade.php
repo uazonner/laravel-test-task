@@ -77,10 +77,24 @@
                 </div>
             </div>
         </nav>
+        @if (Auth::guest())
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-info" role="alert">
+                        <h4>Demo version:</h4>
+                        <strong>User Email:</strong> "demo@gmail.com",
+                        <strong>Pass:</strong> "demo123qwe"
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
