@@ -32,8 +32,11 @@ class LogSuccessfulLogin
     public function handle(Login $event)
     {
 
+        //IP
+        $ip = $_SERVER['REMOTE_ADDR'];
+
         // Country
-        $region_data = json_decode(file_get_contents("http://ipinfo.io/" . Request::ip() . "/"));
+        $region_data = json_decode(file_get_contents("http://ipinfo.io/" . $ip . "/"));
         if (!empty($region_data->country)) {
             $country = $region_data->country;
         } else {
@@ -57,7 +60,7 @@ class LogSuccessfulLogin
 
         // Insert Data to DB
         DB::table('users_details')->insert([
-            'ip' => Request::ip(),
+            'ip' => $ip,
             'user_id' => Auth::user()->id,
             'browser' => $browser,
             'country' => $country,
