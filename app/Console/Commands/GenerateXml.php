@@ -46,9 +46,6 @@ class GenerateXml extends Command
             $userInfo = $item;
         }
         $user_hash = Hash::where('user_id', $id)->with('vocabulary')->orderBy('created_at', 'desc')->get()->toArray();
-        foreach ($user_hash as $item) {
-            $userHash = $item;
-        }
 
         return $userData = ['base_info' => $userBase, 'adv_info' => $userInfo, 'hash_info' => $user_hash];
     }
