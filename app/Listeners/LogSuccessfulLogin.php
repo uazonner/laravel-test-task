@@ -33,7 +33,13 @@ class LogSuccessfulLogin
     {
 
         //IP
-        $ip = $_SERVER['REMOTE_ADDR'];
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
 
         // Country
         $region_data = json_decode(file_get_contents("http://ipinfo.io/" . $ip . "/"));
