@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserDetail;
 use App\User;
 use Illuminate\Http\Request;
 use App\Models\Hash;
@@ -31,6 +32,8 @@ class HomeController extends Controller
                                      ->orderBy('created_at', 'DESC')
                                      ->paginate(20);
 
-        return view('home', ['hashes' => $hashes]);
+        $userInfo = UserDetail::where('user_id', '=', Auth::user()->id)->orderBy('last_login', 'desc')->get()->first();
+        return view('home', ['hashes' => $hashes, 'userInfo' => $userInfo]);
+
     }
 }

@@ -4,11 +4,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+
+                <div class="alert alert-info">
+                    <strong>Your information:</strong> Ip - {{ $userInfo->ip }},
+                    Browser - {{ $userInfo->browser }},
+                    Country - {{ $userInfo->country }},
+                    Last login - {{ $userInfo->last_login }}
+                </div>
+
                 <h3>Saved hashses</h3>
 
                 @if (Session::has('succes'))
                     <div class="alert alert-success">
-                        {!! Session::get('succes') !!}
+                        {{ Session::get('succes') }}
                     </div>
                 @endif
 
@@ -26,7 +34,7 @@
                         <tr>
                             <td>{{ $hash->vocabulary->word }}</td>
                             <td>{{ $hash->algorithm }}</td>
-                            <td>{{ $hash->hash }}</td>
+                            <td><a href="{{ url('/api/hashes', $hash->id) }}">{{ $hash->hash }}</a></td>
                             <td>
                                 {{ Form::open(['method' => 'DELETE', 'route' => ['user::hash.delete', $hash->id]]) }}
                                 {{ Form::submit('Delete',

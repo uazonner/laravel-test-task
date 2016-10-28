@@ -2,6 +2,10 @@
 
 namespace App\Console\Commands;
 
+use SimpleXMLElement;
+use App\Models\Hash;
+use Illuminate\Support\Facades\DB;
+use App\Models\UserDetail;
 use App\User;
 use Illuminate\Console\Command;
 
@@ -31,13 +35,22 @@ class GenerateXml extends Command
         parent::__construct();
     }
 
-    public function getUserArray() {
-        $user = User::with('hash', 'userDetail')->get()->toArray();
-        return $user;
+    public function getUserArray($id) {
+        $user = User::where('id', '=', $id)->get()->toArray();
+        $user_info = UserDetail::where('user_id', '=', $id)->orderBy('last_login', 'desc')->get()->toArray();
+        $user_hash = Hash::where('user_id', '=', $id)->with('vocabulary')->orderBy('created_at', 'desc')->get()->toArray();
+
+        $userData = ['user' => $user, 'user_info' => $user_info, 'user_hash' => $user_hash];
+        return $userData;
     }
 
-    public function arrayToXml() {
-
+    public function arrayToXml(array $arr, SimpleXMLElement $xml) {
+        foreach ($arr as $k => $v) {
+            is_array($v)
+                ? $this->arrayToXml($v, $xml->addChild($k))
+                : $xml->addChild($k, $v);
+        }
+        return $xml;
     }
 
     /**
@@ -57,6 +70,9 @@ class GenerateXml extends Command
             }
 
         }
-        dd($this->getUserArray());
+        // I did not have time to finish
+        $xml = $this->arrayToXml($this->getUserArray(1), new SimpleXMLElement('<root/>'))->asXML();
+
+        file_put_contents($structure . '/test.xml', $xml);
     }
 }
