@@ -29,24 +29,25 @@ class HomeController extends Controller
     public function index()
     {
         $hashes = Hash::where('user_id', '=', Auth::user()->id)
-                                     ->orderBy('created_at', 'DESC')
-                                     ->paginate(20);
+            ->orderBy('created_at', 'DESC')
+            ->paginate(20);
 
         $userInfo = UserDetail::where('user_id', '=', Auth::user()->id)->orderBy('last_login', 'desc')->get()->first();
         return view('home', ['hashes' => $hashes, 'userInfo' => $userInfo]);
 
     }
 
-    public function showFiles() {
+    public function showFiles()
+    {
 
         $dir = public_path('xml');
         $files = scandir($dir);
 
         $deleteStrOne = '.';
-        unset($files[array_search($deleteStrOne,$files)]);
+        unset($files[array_search($deleteStrOne, $files)]);
 
         $deleteStrTwo = '..';
-        unset($files[array_search($deleteStrTwo,$files)]);
+        unset($files[array_search($deleteStrTwo, $files)]);
 
         return view('showXml', ['files' => $files]);
     }

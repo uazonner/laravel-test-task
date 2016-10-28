@@ -50,7 +50,7 @@ class GenerateXml extends Command
             $userHash = $item;
         }
 
-        return $userData = ['base_info' => $userBase, 'adv_info' => $userInfo, 'hash' => $userHash];
+        return $userData = ['base_info' => $userBase, 'adv_info' => $userInfo, 'hash_info' => $userHash];
     }
 
     public function arrayToXml(array $arr, SimpleXMLElement $xml)
