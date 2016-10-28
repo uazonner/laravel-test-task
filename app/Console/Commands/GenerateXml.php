@@ -35,16 +35,26 @@ class GenerateXml extends Command
         parent::__construct();
     }
 
-    public function getUserArray($id) {
+    public function getUserArray($id)
+    {
         $user = User::where('id', '=', $id)->get()->toArray();
+        foreach ($user as $item) {
+            $userBase = $item;
+        }
         $user_info = UserDetail::where('user_id', '=', $id)->orderBy('last_login', 'desc')->get()->toArray();
+        foreach ($user_info as $item) {
+            $userInfo = $item;
+        }
         $user_hash = Hash::where('user_id', '=', $id)->with('vocabulary')->orderBy('created_at', 'desc')->get()->toArray();
+        foreach ($user_hash as $item) {
+            $userHash = $item;
+        }
 
-        $userData = ['user' => $user, 'user_info' => $user_info, 'user_hash' => $user_hash];
-        return $userData;
+        return $userData = ['base_info' => $userBase, 'adv_info' => $userInfo, 'hash' => $userHash];
     }
 
-    public function arrayToXml(array $arr, SimpleXMLElement $xml) {
+    public function arrayToXml(array $arr, SimpleXMLElement $xml)
+    {
         foreach ($arr as $k => $v) {
             is_array($v)
                 ? $this->arrayToXml($v, $xml->addChild($k))
@@ -68,11 +78,12 @@ class GenerateXml extends Command
             } else {
                 mkdir($structure, 0777, false);
             }
-
         }
-        // I did not have time to finish
-        $xml = $this->arrayToXml($this->getUserArray(1), new SimpleXMLElement('<root/>'))->asXML();
 
-        file_put_contents($structure . '/test.xml', $xml);
+        $users = User::all();
+        foreach ($users as $user) {
+            $xml = $this->arrayToXml($this->getUserArray($user->id), new SimpleXMLElement('<root/>'))->asXML();
+            file_put_contents($structure . '/' . $user->name . '.xml', $xml);
+        }
     }
 }
