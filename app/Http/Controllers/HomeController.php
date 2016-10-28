@@ -36,4 +36,18 @@ class HomeController extends Controller
         return view('home', ['hashes' => $hashes, 'userInfo' => $userInfo]);
 
     }
+
+    public function showFiles() {
+
+        $dir = public_path('xml');
+        $files = scandir($dir);
+
+        $deleteStrOne = '.';
+        unset($files[array_search($deleteStrOne,$files)]);
+
+        $deleteStrTwo = '..';
+        unset($files[array_search($deleteStrTwo,$files)]);
+
+        return view('showXml', ['files' => $files]);
+    }
 }

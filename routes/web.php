@@ -27,6 +27,7 @@ Route::group(['as' => 'api::', 'middleware' => ['auth']], function () {
 });
 
 // Main intarface
+Route::get('/show-xml', ['as' => 'showXml::get', 'uses' => 'HomeController@showFiles']);
 Route::get('/', ['as' => 'HashGenerator::get', 'uses' => 'VocabularyController@index']);
 Route::post('/', ['as' => 'HashGenerator::post', 'uses' => 'VocabularyController@hashView']);
 
