@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHashesTable extends Migration
+class CreateUsersDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateHashesTable extends Migration
      */
     public function up()
     {
-        Schema::create('hashes', function (Blueprint $table) {
+        Schema::create('users_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('algorithm');
-            $table->string('hash');
+            $table->string('ip');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('vocabulary_id')->unsigned();
-            $table->foreign('vocabulary_id')->references('id')->on('vocabulary')->onDelete('cascade');
-            $table->timestamps();
+            $table->string('browser');
+            $table->string('country');
+            $table->string('cookies');
+            $table->dateTime('last_login');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateHashesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hashes');
+        Schema::dropIfExists('users_details');
     }
 }

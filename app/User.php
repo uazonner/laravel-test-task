@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\UserDetail;
+use App\Models\Hash;
 
 class User extends Authenticatable
 {
@@ -26,4 +28,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function userDetail() {
+        return $this->hasMany(UserDetail::class);
+    }
+
+    public function hash() {
+        return $this->hasMany(Hash::class);
+    }
 }

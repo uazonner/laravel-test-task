@@ -37,10 +37,10 @@
                                         <td class="{{ $id }}-{{ $algorithm }}-hash">{{ $hash }}</td>
                                         <td>
                                             @if ( Auth::user())
-                                                {!! Form::open() !!}
+                                                {{ Form::open() }}
                                                 {{ Form::submit('Save',
                                                     ['class' => 'btn btn-primary btn-xs saveHash', 'id' => $id . '-' . $algorithm]) }}
-                                                {!! Form::close() !!}
+                                                {{ Form::close() }}
 
                                             @else
                                                 <button type="button" class="btn btn-primary btn-xs disabled">Save

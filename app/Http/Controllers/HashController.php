@@ -16,7 +16,24 @@ class HashController extends Controller
      */
     public function index()
     {
-        //
+        $hashes = Hash::where('user_id', '=', Auth::user()->id)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        $hashesArr = [];
+
+        foreach ($hashes as $key => $value) {
+            $hashesArr[$key]['id'] = $value->id;
+            $hashesArr[$key]['origin'] = $value->vocabulary->word;
+            $hashesArr[$key][$value->algorithm] = $value->hash;
+            $hashesArr[$key]['created_at'] = $value->created_at->format('Y-m-d H:m');
+        }
+
+        if (!$hashesArr) {
+            return abort(404);
+        }
+
+        return response()->json($hashesArr, $status=200, $headers=[], $options=JSON_PRETTY_PRINT);
     }
 
     /**
@@ -61,7 +78,12 @@ class HashController extends Controller
      */
     public function show($id)
     {
-        //
+        $hashes = Hash::find($id);
+
+        if (!$hashes) {
+            return abort(404);
+        }
+        return response()->json($hashes, $status=200, $headers=[], $options=JSON_PRETTY_PRINT);
     }
 
     /**
@@ -95,6 +117,9 @@ class HashController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $hash = Hash::find($id);
+        $hash->delete();
+
+        return redirect()->back()->with('succes', 'Hashe deleted');
     }
 }

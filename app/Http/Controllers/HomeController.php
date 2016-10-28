@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use App\Models\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $hashes = Hash::where('user_id', '=', Auth::user()->id)
+                                     ->orderBy('created_at', 'DESC')
+                                     ->paginate(20);
+
+        return view('home', ['hashes' => $hashes]);
     }
 }
